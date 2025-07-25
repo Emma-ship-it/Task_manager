@@ -1,0 +1,74 @@
+{% extends "partials/base.html" %}
+{% block content %}
+<section class="hero">
+    <div class="hero-container">
+        <div class="hero-content">
+            <h1 class="hero-title">
+                Manage Your Tasks Like a 
+                <span class="gradient-text">Hero</span>
+            </h1>
+            <p class="hero-description">
+                TaskHero helps you organize, prioritize, and complete your tasks with superhero efficiency. 
+                Transform your productivity and never miss a deadline again.
+            </p>
+            <div class="hero-buttons">
+                <a href="#" class="btn btn-primary btn-lg">
+                    <i class="fas fa-rocket"></i>
+                    Get Started Free
+                </a>
+                <a href="#" class="btn btn-secondary btn-lg">
+                    <i class="fas fa-tachometer-alt"></i>
+                    View Dashboard
+                </a>
+            </div>
+        </div>
+        <div class="hero-image">
+            <div class="floating-card">
+                <div class="task-card demo-card">
+                    <div class="task-priority high"></div>
+                    <h3>Launch new feature</h3>
+                    <p>Due: Tomorrow</p>
+                    <span class="task-status">In Progress</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="features">
+    <div class="container">
+        <h2 class="section-title">Why Choose TaskHero?</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-tasks"></i>
+                </div>
+                <h3>Smart Organization</h3>
+                <p>Organize tasks with priorities, due dates, and status tracking for maximum productivity.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-chart-line"></i>
+                </div>
+                <h3>Visual Progress</h3>
+                <p>Track your progress with intuitive Kanban boards and visual status indicators.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-bell"></i>
+                </div>
+                <h3>Never Miss Deadlines</h3>
+                <p>Get notified about overdue tasks and upcoming deadlines to stay on track.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cta-section">
+    <div class="container">
+        <h2>Ready to Become a Task Hero?</h2>
+        <p>Join thousands of users who have transformed their productivity with TaskHero.</p>
+        <a href="#" class="btn btn-primary btn-lg">Start Your Hero Journey</a>
+    </div>
+</section>
+{% endblock content %}

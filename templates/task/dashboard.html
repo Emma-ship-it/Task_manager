@@ -1,0 +1,186 @@
+
+{% extends "partials/base.html" %}
+
+{% block title %}Dashboard - TaskHero{% endblock %}
+
+{% block content %}
+<div class="dashboard">
+    <div class="dashboard-header">
+        <div class="container">
+            <div class="dashboard-title">
+                <h1>Your Task Dashboard</h1>
+                <p>Welcome back, Hero! Here's what you need to accomplish today.</p>
+            </div>
+            <a href="#" class="btn btn-primary">
+                <i class="fas fa-plus"></i>
+                Add Task
+            </a>
+        </div>
+    </div>
+
+    <div class="dashboard-content">
+        <div class="container">
+            <div class="kanban-board">
+                <!-- To Do Column -->
+                <div class="kanban-column">
+                    <div class="column-header todo-header">
+                        <h3><i class="fas fa-circle-notch"></i> To Do</h3>
+                        <span class="task-count">3</span>
+                    </div>
+                    <div class="tasks-container">
+                        <div class="task-card">
+                            <div class="task-priority high"></div>
+                            <h4>Launch marketing campaign</h4>
+                            <p class="task-due">Due: Dec 15, 2024</p>
+                            <div class="task-meta">
+                                <span class="priority-badge high">High Priority</span>
+                                <div class="task-actions">
+                                    <a href="#" class="btn-icon" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <button class="btn-icon delete-btn" title="Delete" onclick="event.stopPropagation(); confirmDelete(1)">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="task-card overdue" >
+                            <div class="task-priority medium"></div>
+                            <div class="overdue-tag">OVERDUE</div>
+                            <h4>Update website content</h4>
+                            <p class="task-due">Due: Dec 10, 2024</p>
+                            <div class="task-meta">
+                                <span class="priority-badge medium">Medium Priority</span>
+                                <div class="task-actions">
+                                    <a href="#" class="btn-icon" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <button class="btn-icon delete-btn" title="Delete" onclick="event.stopPropagation(); confirmDelete(2)">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="task-card">
+                            <div class="task-priority low"></div>
+                            <h4>Review quarterly reports</h4>
+                            <p class="task-due">Due: Dec 20, 2024</p>
+                            <div class="task-meta">
+                                <span class="priority-badge low">Low Priority</span>
+                                <div class="task-actions">
+                                    <a href="#" class="btn-icon" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <button class="btn-icon delete-btn" title="Delete" onclick="event.stopPropagation(); confirmDelete(3)">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- In Progress Column -->
+                <div class="kanban-column">
+                    <div class="column-header progress-header">
+                        <h3><i class="fas fa-clock"></i> In Progress</h3>
+                        <span class="task-count">2</span>
+                    </div>
+                    <div class="tasks-container">
+                        <div class="task-card">
+                            <div class="task-priority high"></div>
+                            <h4>Develop new feature</h4>
+                            <p class="task-due">Due: Dec 18, 2024</p>
+                            <div class="task-meta">
+                                <span class="priority-badge high">High Priority</span>
+                                <div class="task-actions">
+                                    <a href="#" class="btn-icon" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <button class="btn-icon delete-btn" title="Delete" onclick="event.stopPropagation(); confirmDelete(4)">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="task-card">
+                            <div class="task-priority medium"></div>
+                            <h4>Client presentation prep</h4>
+                            <p class="task-due">Due: Dec 16, 2024</p>
+                            <div class="task-meta">
+                                <span class="priority-badge medium">Medium Priority</span>
+                                <div class="task-actions">
+                                    <a  class="btn-icon" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <button class="btn-icon delete-btn" title="Delete" onclick="event.stopPropagation(); confirmDelete(5)">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Completed Column -->
+                <div class="kanban-column">
+                    <div class="column-header completed-header">
+                        <h3><i class="fas fa-check-circle"></i> Completed</h3>
+                        <span class="task-count">2</span>
+                    </div>
+                    <div class="tasks-container">
+                        <div class="task-card completed">
+                            <div class="task-priority low"></div>
+                            <h4>Team meeting notes</h4>
+                            <p class="task-due">Completed: Dec 12, 2024</p>
+                            <div class="task-meta">
+                                <span class="priority-badge low">Low Priority</span>
+                                <div class="task-actions">
+                                    <a href="#" class="btn-icon" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <button class="btn-icon delete-btn" title="Delete" onclick="event.stopPropagation(); confirmDelete(6)">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="task-card completed" >
+                            <div class="task-priority medium"></div>
+                            <h4>Database backup</h4>
+                            <p class="task-due">Completed: Dec 11, 2024</p>
+                            <div class="task-meta">
+                                <span class="priority-badge medium">Medium Priority</span>
+                                <div class="task-actions">
+                                    <a href="#" class="btn-icon" title="Edit">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                    <button class="btn-icon delete-btn" title="Delete" onclick="event.stopPropagation(); confirmDelete(7)">
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div id="deleteModal" class="modal">
+    <div class="modal-content">
+        <h3>Confirm Deletion</h3>
+        <p>Are you sure you want to delete this task? This action cannot be undone.</p>
+        <div class="modal-actions">
+            <button class="btn btn-secondary" onclick="closeDeleteModal()">Cancel</button>
+            <button class="btn btn-danger" onclick="deleteTask()">Delete Task</button>
+        </div>
+    </div>
+</div>
+{% endblock %}
