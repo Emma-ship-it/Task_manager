@@ -25,35 +25,35 @@ document.addEventListener('DOMContentLoaded', function() {
 let taskToDelete = null;
 
 // Delete Task Functions
-function confirmDelete(taskId) {
-    taskToDelete = taskId;
-    const modal = document.getElementById('deleteModal');
-    if (modal) {
-        modal.style.display = 'block';
-    }
-}
+// function confirmDelete(taskId) {
+//     taskToDelete = taskId;
+//     const modal = document.getElementById('deleteModal');
+//     if (modal) {
+//         modal.style.display = 'block';
+//     }
+// }
 
-function closeDeleteModal() {
-    const modal = document.getElementById('deleteModal');
-    if (modal) {
-        modal.style.display = 'none';
-    }
-    taskToDelete = null;
-}
+// function closeDeleteModal() {
+//     const modal = document.getElementById('deleteModal');
+//     if (modal) {
+//         modal.style.display = 'none';
+//     }
+//     taskToDelete = null;
+// }
 
-function deleteTask() {
-    if (taskToDelete) {
-        // In a real application, this would make an AJAX call to delete the task
-        console.log('Deleting task with ID:', taskToDelete);
+// function deleteTask() {
+//     if (taskToDelete) {
+//         // In a real application, this would make an AJAX call to delete the task
+//         console.log('Deleting task with ID:', taskToDelete);
         
-        // Simulate task deletion
-        alert('Task deleted successfully!');
+//         // Simulate task deletion
+//         alert('Task deleted successfully!');
         
-        // Redirect to dashboard
-        window.location.href = '/dashboard/';
-    }
-    closeDeleteModal();
-}
+//         // Redirect to dashboard
+//         window.location.href = '/dashboard/';
+//     }
+//     closeDeleteModal();
+// }
 
 // Mark Task as Completed
 function markAsCompleted(taskId) {
@@ -109,17 +109,17 @@ function validateTaskForm() {
 }
 
 // Add form validation to task forms
-document.addEventListener('DOMContentLoaded', function() {
-    const taskForms = document.querySelectorAll('.task-form');
-    taskForms.forEach(form => {
-        form.addEventListener('submit', function(e) {
-            if (!validateTaskForm()) {
-                e.preventDefault();
-                alert('Please fill in all required fields.');
-            }
-        });
-    });
-});
+// document.addEventListener('DOMContentLoaded', function() {
+//     const taskForms = document.querySelectorAll('.task-form');
+//     taskForms.forEach(form => {
+//         form.addEventListener('submit', function(e) {
+//             if (!validateTaskForm()) {
+//                 e.preventDefault();
+//                 alert('Please fill in all required fields.');
+//             }
+//         });
+//     });
+// });
 
 // Smooth scrolling for anchor links
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -149,17 +149,17 @@ function addLoadingState(button) {
 }
 
 // Add click handlers for form submissions
-document.addEventListener('DOMContentLoaded', function() {
-    const submitButtons = document.querySelectorAll('button[type="submit"]');
-    submitButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault()
-            if (validateTaskForm()) {
-                addLoadingState(this);
-            }
-        });
-    });
-});
+// document.addEventListener('DOMContentLoaded', function() {
+//     const submitButtons = document.querySelectorAll('button[type="submit"]');
+//     submitButtons.forEach(button => {
+//         button.addEventListener('click', function(e) {
+//             e.preventDefault()
+//             if (validateTaskForm()) {
+//                 addLoadingState(this);
+//             }
+//         });
+//     });
+// });
 
 // Close modal when clicking outside
 window.addEventListener('click', function(event) {

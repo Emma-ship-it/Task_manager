@@ -1,0 +1,20 @@
+{% extends 'partials/base.html'%}
+{% block title %}Confirm - Task Hero{% endblock %}
+{% block content %}
+<div id="deleteModal" class="modal">
+    <div class="modal-content">
+        <h3>Confirm Deletion</h3>
+        <p>Are you sure you want to delete "{{ task.title  }}"? This action cannot be undone.</p>
+        <div class="modal-actions">
+            <button class="btn btn-secondary">
+                <a href="{% url 'task:detail' task.id  %}" style ="text-decoration:none;">Cancel</a>
+            </button>
+            <form action="{% url 'task:delete' task.id%}" method="post">
+                {% csrf_token %}
+                <button class="btn btn-danger" type="submit">Delete Task</button>
+            </form>
+            
+        </div>
+    </div>
+</div>
+{% endblock %}

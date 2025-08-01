@@ -559,9 +559,9 @@ body {
     color: white;
 }
 
-.status-badge.todo { background: #ef4444; }
-.status-badge.in_progress { background: #f59e0b; }
-.status-badge.completed { background: #10b981; }
+.status-badge.TD { background: #ef4444; }
+.status-badge.IP { background: #f59e0b; }
+.status-badge.C { background: #10b981; }
 
 .task-actions {
     display: flex;
@@ -719,14 +719,14 @@ body {
 
 /* Modal */
 .modal {
-    display: none;
+    display: block;
     position: fixed;
     z-index: 2000;
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.7);
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
     backdrop-filter: blur(5px);
 }
 
