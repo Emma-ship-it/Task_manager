@@ -11,7 +11,7 @@
                 <h1>Your Task Dashboard</h1>
                 <p>Welcome back, Hero! Here's what you need to accomplish today.</p>
             </div>
-            <a href="{% url  'task:add' %}" class="btn btn-primary">
+            <a href="{% url 'task:add' %}" class="btn btn-primary">
                 <i class="fas fa-plus"></i>
                 Add Task
             </a>
@@ -25,14 +25,15 @@
                 <div class="kanban-column">
                     <div class="column-header todo-header">
                         <h3><i class="fas fa-circle-notch"></i> To Do</h3>
-                        <span class="task-count">3</span>
+                        <span class="task-count">{{ TODO.count }}</span>
                     </div>
                     
                     <div class="tasks-container">
                         {% for i in TODO %} 
                             <a href="{% url 'task:detail' i.pk %}" style="text-decoration:none">
-                                <div class="task-card">
+                                <div class="task-card {% if i.due %}overdue{% endif %}">
                                     <div class="task-priority  {{ i.get_priority_display|lower }}"></div>
+                                    {% if i.due %}<div class="overdue-tag">OVERDUE</div>{% endif %}
                                     <h4>{{ i.title }}</h4>
                                     <p class="task-due">Due: {{ i.due_date }}</p>
                                     <div class="task-meta">
@@ -95,13 +96,14 @@
                 <div class="kanban-column">
                     <div class="column-header progress-header">
                         <h3><i class="fas fa-clock"></i> In Progress</h3>
-                        <span class="task-count">2</span>
+                        <span class="task-count">{{ progress.count }}</span>
                     </div>
                     <div class="tasks-container">
                         {% for i in progress %}
                             <a href="{% url 'task:detail' i.pk %}" style="text-decoration:none">
-                                <div class="task-card">
+                                <div class="task-card {% if i.due %}overdue{% endif %}">
                                     <div class="task-priority {{ i.get_priority_display|lower }}"></div>
+                                    {% if i.due %}<div class="overdue-tag">OVERDUE</div>{% endif %}
                                     <h4>{{ i.title }}</h4>
                                     <p class="task-due">Due: {{ i.due_date }}</p>
                                     <div class="task-meta">
@@ -145,7 +147,7 @@
                 <div class="kanban-column">
                     <div class="column-header completed-header">
                         <h3><i class="fas fa-check-circle"></i> Completed</h3>
-                        <span class="task-count">2</span>
+                        <span class="task-count">{{ complete.count  }}</span>
                     </div>
                     <div class="tasks-container">
                         {% for i in complete %}

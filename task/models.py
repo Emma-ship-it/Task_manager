@@ -1,7 +1,9 @@
 from django.db import models
-
+from django.contrib.auth import get_user_model 
+from django.utils import timezone
 
 # Create your models here.
+User = get_user_model()
 
 class Priority(models.TextChoices):
     HIGH = 'H','High'
@@ -21,6 +23,12 @@ class Tasks(models.Model):
     category = models.CharField(max_length = 12, choices = Category.choices,default=Category.TO_DO)
     priority = models.CharField(max_length=6, choices = Priority.choices, default = Priority.LOW)
     added_on = models.DateTimeField(auto_now_add = True)
+    added_by = models.ForeignKey(User, on_delete= models.CASCADE)
+    
+    def due(self):
+        today= timezone.now()
+        return today > self.due_date
+    
     
     
     

@@ -20,7 +20,16 @@
             <div class="nav-menu">
                 <a href="{% url 'task:home'  %}" class="nav-link">Home</a>
                 <a href="{% url 'task:dashboard' %}" class="nav-link">Dashboard</a>
-                <a href="{% url 'users:login'%}" class="nav-link">Log In</a>
+                {% if request.user.is_authenticated %}
+                    <form action="{% url 'users:logout' %}" method="POST">
+                        {% csrf_token %}
+                        <button class="nav-link nav-cta" type="submit" style="border:none; font-weight:700;font-size:15px ">Log Out</button>
+                    </form>
+            
+                {% else %}
+                    <li><a href="{% url 'users:login' %}" class="nav-link">Log In</a></li>
+
+                {% endif %}
                 <a href="{% url 'users:signup'%}" class="nav-link nav-cta">Sign Up</a>
             </div>
             <div class="nav-toggle">

@@ -1,4 +1,5 @@
 from django.shortcuts import render,redirect,get_object_or_404
+from django.contrib.auth.decorators import login_required
 from .models import Tasks,Category,Priority
 from .forms import CreateTaskForm 
 
@@ -6,10 +7,13 @@ from .forms import CreateTaskForm
 def home(request):
     return render(request,'task/index.html')
 
+@login_required
 def dashboard(request):
-    to_do = Tasks.objects.filter(category = Category.TO_DO)
-    progress = Tasks.objects.filter(category = Category.Progress)
-    complete = Tasks.objects.filter(category = Category.Completed)
+    user= request.user
+    tasks = Tasks.objects.filter(added_by = user)
+    to_do = tasks.filter(category = Category.TO_DO)
+    progress = tasks.filter(category = Category.Progress)
+    complete = tasks.filter(category = Category.Completed)
     return render(request,'task/dashboard.html',{"TODO":to_do,'progress':progress,'complete': complete})
 
 
@@ -22,7 +26,9 @@ def add_task(request):
     if request.method == 'POST':
         add_task_form = CreateTaskForm(request.POST)  
         if add_task_form.is_valid():
-            add_task_form.save()  
+            new_task = add_task_form.save(commit=False)  
+            new_task.added_by = request.user
+            new_task.save()
             return redirect('task:dashboard')
         else:
             print(add_task_form.errors)
