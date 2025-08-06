@@ -202,4 +202,71 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 });
 
+
+window.BookReview = {
+    showError: function(message) {
+        // This can be called from Django templates to show errors
+        const errorDiv = document.createElement('div');
+        errorDiv.className = 'error-message fade-in';
+        errorDiv.style.cssText = `
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: #fee2e2;
+            color: #dc2626;
+            padding: 1rem 1.5rem;
+            border-radius: 0.5rem;
+            border: 1px solid #fecaca;
+            z-index: 9999;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        `;
+        errorDiv.textContent = message;
+        document.body.appendChild(errorDiv);
+
+        setTimeout(() => {
+            if (errorDiv.parentNode) {
+                errorDiv.remove();
+            }
+        }, 5000);
+    },
+    
+    showSuccess: function(message) {
+        // This can be called from Django templates to show success messages
+        const successDiv = document.createElement('div');
+        successDiv.className = 'success-message fade-in';
+        successDiv.style.cssText = `
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: #dcfce7;
+            color: #166534;
+            padding: 1rem 1.5rem;
+            border-radius: 0.5rem;
+            border: 1px solid #bbf7d0;
+            z-index: 9999;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        `;
+        successDiv.textContent = message;
+        document.body.appendChild(successDiv);
+
+        setTimeout(() => {
+            if (successDiv.parentNode) {
+                successDiv.remove();
+            }
+        }, 5000);
+    }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
 console.log('TaskHero JavaScript loaded successfully!');

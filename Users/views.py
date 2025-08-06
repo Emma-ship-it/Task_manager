@@ -10,6 +10,6 @@ def signup(request):
         sign_up_form = CustomUserCreationForm(request.POST)
         if sign_up_form.is_valid():
             sign_up_form.save()
-            # messages.success("Account created successfully")
+            messages.success(request,"Account created successfully")
             return redirect('users:login')
     return render(request,'Users/signup.html',{'form':sign_up_form})    

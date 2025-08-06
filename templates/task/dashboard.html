@@ -9,7 +9,7 @@
         <div class="container">
             <div class="dashboard-title">
                 <h1>Your Task Dashboard</h1>
-                <p>Welcome back, Hero! Here's what you need to accomplish today.</p>
+                <p>Welcome back, {{ request.user }}! Here's what you need to accomplish today.</p>
             </div>
             <a href="{% url 'task:add' %}" class="btn btn-primary">
                 <i class="fas fa-plus"></i>
@@ -19,181 +19,127 @@
     </div>
 
     <div class="dashboard-content">
-        <div class="container">
-            <div class="kanban-board">
-                <!-- To Do Column -->
-                <div class="kanban-column">
-                    <div class="column-header todo-header">
-                        <h3><i class="fas fa-circle-notch"></i> To Do</h3>
-                        <span class="task-count">{{ TODO.count }}</span>
-                    </div>
-                    
-                    <div class="tasks-container">
-                        {% for i in TODO %} 
-                            <a href="{% url 'task:detail' i.pk %}" style="text-decoration:none">
-                                <div class="task-card {% if i.due %}overdue{% endif %}">
-                                    <div class="task-priority  {{ i.get_priority_display|lower }}"></div>
-                                    {% if i.due %}<div class="overdue-tag">OVERDUE</div>{% endif %}
-                                    <h4>{{ i.title }}</h4>
-                                    <p class="task-due">Due: {{ i.due_date }}</p>
-                                    <div class="task-meta">
-                                        <span class="priority-badge {{ i.get_priority_display|lower }}"> {{ i.get_priority_display }} Priority</span>
-                                        <div class="task-actions">
-                                            <a href="{% url 'task:edit' i.pk %}" class="btn-icon" title="Edit">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                            <button class="btn-icon delete-btn" title="Delete">
-                                                <a href="{% url  'task:confirm' i.pk%}" style = "text-decoration:none"><i class="fas fa-trash"></i></a>
-
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </a> 
-
-                       {% endfor %}
-                    
-{% comment %} 
-
-                        <div class="task-card overdue" >
-                            <div class="task-priority medium"></div>
-                            <div class="overdue-tag">OVERDUE</div>
-                            <h4>Update website content</h4>
-                            <p class="task-due">Due: Dec 10, 2024</p>
-                            <div class="task-meta">
-                                <span class="priority-badge medium">Medium Priority</span>
-                                <div class="task-actions">
-                                    <a href="#" class="btn-icon" title="Edit">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <button class="btn-icon delete-btn" title="Delete" onclick="event.stopPropagation(); confirmDelete(2)">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
-                            </div>
+       {% if task %}
+       <div class="container">
+        <div class="kanban-board">
+            <!-- To Do Column -->
+            {% if TODO %}
+                    <div class="kanban-column slide-in">
+                        <div class="column-header todo-header">
+                            <h3><i class="fas fa-circle-notch"></i> To Do</h3>
+                            <span class="task-count">{{ TODO.count }}</span>
                         </div>
+                        
+                        <div class="tasks-container">
+                            {% for i in TODO %} 
+                                <a href="{% url 'task:detail' i.pk %}" style="text-decoration:none">
+                                    <div class="task-card {% if i.due %}overdue{% endif %}">
+                                        <div class="task-priority  {{ i.get_priority_display|lower }}"></div>
+                                        {% if i.due %}<div class="overdue-tag">OVERDUE</div>{% endif %}
+                                        <h4>{{ i.title }}</h4>
+                                        <p class="task-due">Due: {{ i.due_date }}</p>
+                                        <div class="task-meta">
+                                            <span class="priority-badge {{ i.get_priority_display|lower }}"> {{ i.get_priority_display }} Priority</span>
+                                            <div class="task-actions">
+                                                <a href="{% url 'task:edit' i.pk %}" class="btn-icon" title="Edit">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <button class="btn-icon delete-btn" title="Delete">
+                                                    <a href="{% url  'task:confirm' i.pk%}" style = "text-decoration:none"><i class="fas fa-trash"></i></a>
 
-                        <div class="task-card">
-                            <div class="task-priority low"></div>
-                            <h4>Review quarterly reports</h4>
-                            <p class="task-due">Due: Dec 20, 2024</p>
-                            <div class="task-meta">
-                                <span class="priority-badge low">Low Priority</span>
-                                <div class="task-actions">
-                                    <a href="#" class="btn-icon" title="Edit">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <button class="btn-icon delete-btn" title="Delete" onclick="event.stopPropagation(); confirmDelete(3)">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>  {% endcomment %}
-                    </div>
-                </div>
-
-                <!-- In Progress Column -->
-                <div class="kanban-column">
-                    <div class="column-header progress-header">
-                        <h3><i class="fas fa-clock"></i> In Progress</h3>
-                        <span class="task-count">{{ progress.count }}</span>
-                    </div>
-                    <div class="tasks-container">
-                        {% for i in progress %}
-                            <a href="{% url 'task:detail' i.pk %}" style="text-decoration:none">
-                                <div class="task-card {% if i.due %}overdue{% endif %}">
-                                    <div class="task-priority {{ i.get_priority_display|lower }}"></div>
-                                    {% if i.due %}<div class="overdue-tag">OVERDUE</div>{% endif %}
-                                    <h4>{{ i.title }}</h4>
-                                    <p class="task-due">Due: {{ i.due_date }}</p>
-                                    <div class="task-meta">
-                                        <span class="priority-badge {{ i.get_priority_display|lower }}">{{ i.get_priority_display }} Priority</span>
-                                        <div class="task-actions">
-                                            <a href="{%  url  'task:edit' i.id %}" class="btn-icon" title="Edit">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                            <button class="btn-icon delete-btn" title="Delete">
-                                                <a href="{% url 'task:confirm' i.pk %}" style="text-decoration:none"><i class="fas fa-trash"></i></a>
-
-                                            </button>
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            </a>
+                                </a> 
 
                         {% endfor %}
-
-
-                        {% comment %} <div class="task-card">
-                            <div class="task-priority medium"></div>
-                            <h4>Client presentation prep</h4>
-                            <p class="task-due">Due: Dec 16, 2024</p>
-                            <div class="task-meta">
-                                <span class="priority-badge medium">Medium Priority</span>
-                                <div class="task-actions">
-                                    <a  class="btn-icon" title="Edit">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <button class="btn-icon delete-btn" title="Delete" onclick="event.stopPropagation(); confirmDelete(5)">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div> {% endcomment %}
+                        
+                        </div>
                     </div>
-                </div>
+            {% endif %}
 
-                <!-- Completed Column -->
-                <div class="kanban-column">
-                    <div class="column-header completed-header">
-                        <h3><i class="fas fa-check-circle"></i> Completed</h3>
-                        <span class="task-count">{{ complete.count  }}</span>
-                    </div>
-                    <div class="tasks-container">
-                        {% for i in complete %}
-                            <a href="{% url 'task:detail' i.pk %}"  style="text-decoration:none">
-                                <div class="task-card completed">
-                                    <div class="task-priority {{ i.get_priority_display|lower }}"></div>
-                                    <h4>{{ i.title }}</h4>
-                                    <p class="task-due">Completed: Dec 12, 2024</p>
-                                    <div class="task-meta">
-                                        <span class="priority-badge {{ i.get_priority_display|lower  }}">{{ i.get_priority_display }} Priority</span>
-                                        <div class="task-actions">
-                                            <a href="{% url  'task:edit' i.pk %}" class="btn-icon" title="Edit">
-                                                <i class="fas fa-edit"></i>
-                                            </a>
-                                            <button class="btn-icon delete-btn" title="Delete">
-                                                <a href="{% url 'task:confirm' i.pk %}" style="text-decoration:none"> <i class="fas fa-trash"></i></a>
 
-                                            </button>
+            <!-- In Progress Column -->
+            {% if progress %}
+                    <div class="kanban-column slide-in">
+                        <div class="column-header progress-header">
+                            <h3><i class="fas fa-clock"></i> In Progress</h3>
+                            <span class="task-count">{{ progress.count }}</span>
+                        </div>
+                        <div class="tasks-container">
+                            {% for i in progress %}
+                                <a href="{% url 'task:detail' i.pk %}" style="text-decoration:none">
+                                    <div class="task-card {% if i.due %}overdue{% endif %}">
+                                        <div class="task-priority {{ i.get_priority_display|lower }}"></div>
+                                        {% if i.due %}<div class="overdue-tag">OVERDUE</div>{% endif %}
+                                        <h4>{{ i.title }}</h4>
+                                        <p class="task-due">Due: {{ i.due_date }}</p>
+                                        <div class="task-meta">
+                                            <span class="priority-badge {{ i.get_priority_display|lower }}">{{ i.get_priority_display }} Priority</span>
+                                            <div class="task-actions">
+                                                <a href="{%  url  'task:edit' i.id %}" class="btn-icon" title="Edit">
+                                                    <i class="fas fa-edit"></i>
+                                                </a>
+                                                <button class="btn-icon delete-btn" title="Delete">
+                                                    <a href="{% url 'task:confirm' i.pk %}" style="text-decoration:none"><i class="fas fa-trash"></i></a>
+
+                                                </button>
+                                            </div>
                                         </div>
                                     </div>
-                                </div> 
-                            </a>
+                                </a>
 
-                        {% endfor %}
-                  
-{% comment %} 
-                        <div class="task-card completed" >
-                            <div class="task-priority medium"></div>
-                            <h4>Database backup</h4>
-                            <p class="task-due">Completed: Dec 11, 2024</p>
-                            <div class="task-meta">
-                                <span class="priority-badge medium">Medium Priority</span>
-                                <div class="task-actions">
-                                    <a href="#" class="btn-icon" title="Edit">
-                                        <i class="fas fa-edit"></i>
-                                    </a>
-                                    <button class="btn-icon delete-btn" title="Delete" onclick="event.stopPropagation(); confirmDelete(7)">
-                                        <i class="fas fa-trash"></i>
-                                    </button>
-                                </div>
-                            </div>
-                        </div> {% endcomment %}
+                            {% endfor %}
+                        </div>
                     </div>
+            {% endif %}
+
+
+
+            
+
+            <!-- Completed Column -->
+            {% if complete %}
+            <div class="kanban-column slide-in">
+                <div class="column-header completed-header">
+                    <h3><i class="fas fa-check-circle"></i> Completed</h3>
+                    <span class="task-count">{{ complete.count  }}</span>
+                </div>
+                <div class="tasks-container">
+                    {% for i in complete %}
+                        <a href="{% url 'task:detail' i.pk %}"  style="text-decoration:none">
+                            <div class="task-card completed">
+                                <div class="task-priority {{ i.get_priority_display|lower }}"></div>
+                                <h4>{{ i.title }}</h4>
+                                <p class="task-due">Completed: Dec 12, 2024</p>
+                                <div class="task-meta">
+                                    <span class="priority-badge {{ i.get_priority_display|lower  }}">{{ i.get_priority_display }} Priority</span>
+                                    <div class="task-actions">
+                                        <a href="{% url  'task:edit' i.pk %}" class="btn-icon" title="Edit">
+                                            <i class="fas fa-edit"></i>
+                                        </a>
+                                        <button class="btn-icon delete-btn" title="Delete">
+                                            <a href="{% url 'task:confirm' i.pk %}" style="text-decoration:none"> <i class="fas fa-trash"></i></a>
+
+                                        </button>
+                                    </div>
+                                </div>
+                            </div> 
+                        </a>
+
+                    {% endfor %}
+              
+
                 </div>
             </div>
+            {% endif %}
+
         </div>
+    </div>
+       {% else %}
+         <div style ="color:white; margin:auto; display:flex; justify-content:center; font-size:30px; font-weight:bold">You have no pending task in your dashboard</div> 
+       {% endif %}
     </div>
 </div>
 

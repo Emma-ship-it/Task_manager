@@ -14,7 +14,7 @@ def dashboard(request):
     to_do = tasks.filter(category = Category.TO_DO)
     progress = tasks.filter(category = Category.Progress)
     complete = tasks.filter(category = Category.Completed)
-    return render(request,'task/dashboard.html',{"TODO":to_do,'progress':progress,'complete': complete})
+    return render(request,'task/dashboard.html',{"TODO":to_do,'progress':progress,'complete': complete,'task':tasks})
 
 
 def task_detail(request, task_id):

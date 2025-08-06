@@ -26,7 +26,7 @@ class Tasks(models.Model):
     added_by = models.ForeignKey(User, on_delete= models.CASCADE)
     
     def due(self):
-        today= timezone.now()
+        today= timezone.now().date()
         return today > self.due_date
     
     
